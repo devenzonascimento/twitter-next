@@ -4,7 +4,7 @@ import Link from "next/link";
 
 export default function HelpCenterPage() {
 	return (
-		<main className="flex flex-col items-center">
+		<main className="flex flex-col items-center bg-white">
 			<header className="sticky top-0 z-10 w-full px-6 pt-3 bg-white">
 				<a
 					className="h-[84px] flex items-center gap-2.5"
@@ -19,14 +19,14 @@ export default function HelpCenterPage() {
 				</a>
 			</header>
 
-			<section className="p-5 text-[#14171A] md:max-w-[596px]">
-				<h1 className="text-4xl font-bold md:text-6xl lg:text-7xl">
+			<section className="p-5 text-[#14171A] md:max-w-[596px] bg-white dark:bg-black dark:text-white">
+				<h1 className="text-4xl font-bold md:text-6xl lg:text-7xl bg-white">
 					Copyright Violation and Appeal Process
 				</h1>
 
 				<hr className="w-full h-[0px] border-t border-[#657786] my-8 lg:my-16" />
 
-				<p className="mb-16 lg:text-lg">
+				<p className="mb-16 lg:text-lg bg-white">
 					We have received a formal complaint regarding a copyright violation
 					related to your post published below. Following a thorough review, our
 					team has confirmed the validity of this claim. As a result, your
@@ -36,7 +36,7 @@ export default function HelpCenterPage() {
 					is essential in resolving this issue promptly.
 				</p>
 
-				<p className="mb-8 lg:text-lg">
+				<p className="mb-8 lg:text-lg bg-white">
 					If you believe this decision is incorrect or if you have additional
 					information that could support your case, you have the right to submit
 					an appeal. To initiate this process, please access the appeal form
@@ -45,7 +45,7 @@ export default function HelpCenterPage() {
 					timeframe to prevent the suspension of your account.
 				</p>
 
-				<div className="px-6 flex flex-col items-center">
+				<div className="px-6 flex flex-col items-center bg-white">
 					<div className="relative w-[270px]">
 						<iframe
 							title=" "

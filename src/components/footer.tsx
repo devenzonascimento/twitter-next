@@ -5,7 +5,7 @@ export function Footer() {
 		<footer className="w-full px-6 py-9 bg-[#14171A] text-white/70 [&_*]:text-sm">
 			<details className="w-full">
 				<summary className="h-12 text-sm font-bold flex items-center justify-between">
-					<span>Plataforma do X</span>
+					<span>X platform</span>
 					<ChevronDownIcon className="size-3 fill-white" />
 				</summary>
 
@@ -40,7 +40,7 @@ export function Footer() {
 						data-twtr-scribe-element="JSCZ"
 						data-twtr-scribe-component="acessibilidade"
 					>
-						Acessibilidade
+						Accessibility
 					</a>
 					<a
 						href="https://publish.x.com"
@@ -51,7 +51,7 @@ export function Footer() {
 						data-twtr-scribe-element="JSCZ"
 						data-twtr-scribe-component="integre-um-post"
 					>
-						Integre um post
+						Embed a post
 					</a>
 					<a
 						href="https://privacy.x.com/"
@@ -62,7 +62,7 @@ export function Footer() {
 						data-twtr-scribe-element="JSCZ"
 						data-twtr-scribe-component="central-de-privacidade"
 					>
-						Central de Privacidade
+						Privacy Center
 					</a>
 					<a
 						href="https://transparency.x.com/"
@@ -73,7 +73,7 @@ export function Footer() {
 						data-twtr-scribe-element="JSCZ"
 						data-twtr-scribe-component="central-de-transpar-ncia"
 					>
-						Central de Transparência
+						Transparency Center
 					</a>
 					<a
 						href="https://help.x.com/using-x/download-the-x-app"
@@ -84,7 +84,7 @@ export function Footer() {
 						data-twtr-scribe-element="JSCZ"
 						data-twtr-scribe-component="baixe-o-aplicativo-do-x"
 					>
-						Baixe o aplicativo do X
+						Download the X app
 					</a>
 				</div>
 			</details>
@@ -105,7 +105,7 @@ export function Footer() {
 						data-twtr-scribe-element="JSCZ"
 						data-twtr-scribe-component="sobre-a-empresa"
 					>
-						Sobre a empresa
+						About the company
 					</a>
 
 					<a
@@ -117,7 +117,7 @@ export function Footer() {
 						data-twtr-scribe-element="JSCZ"
 						data-twtr-scribe-component="not-cia-da-empresa"
 					>
-						Notícia da empresa
+						Company news
 					</a>
 
 					<a
@@ -129,7 +129,7 @@ export function Footer() {
 						data-twtr-scribe-element="JSCZ"
 						data-twtr-scribe-component="kit-de-ferramentas-da-marca"
 					>
-						Kit de ferramentas da marca
+						Brand toolkit
 					</a>
 
 					<a
@@ -141,7 +141,7 @@ export function Footer() {
 						data-twtr-scribe-element="JSCZ"
 						data-twtr-scribe-component="empregos-e-est-gios"
 					>
-						Empregos e estágios
+						Jobs and internships
 					</a>
 
 					<a
@@ -153,14 +153,14 @@ export function Footer() {
 						data-twtr-scribe-element="JSCZ"
 						data-twtr-scribe-component="investidores"
 					>
-						Investidores
+						Investors
 					</a>
 				</div>
 			</details>
 
 			<details className="w-full">
 				<summary className="h-12 text-sm font-bold flex items-center justify-between">
-					<span>Ajuda</span>
+					<span>Help</span>
 					<ChevronDownIcon className="size-3 fill-white" />
 				</summary>
 
@@ -174,7 +174,7 @@ export function Footer() {
 						data-twtr-scribe-element="JSCZ"
 						data-twtr-scribe-component="central-de-ajuda"
 					>
-						Central de Ajuda
+						Help Center
 					</a>
 
 					<a
@@ -186,7 +186,7 @@ export function Footer() {
 						data-twtr-scribe-element="JSCZ"
 						data-twtr-scribe-component="como-usar-o-x"
 					>
-						Como usar o X
+						Using X
 					</a>
 
 					<a
@@ -198,7 +198,7 @@ export function Footer() {
 						data-twtr-scribe-element="JSCZ"
 						data-twtr-scribe-component="x-para-criadores"
 					>
-						X para criadores
+						X for creators
 					</a>
 
 					<a
@@ -210,7 +210,7 @@ export function Footer() {
 						data-twtr-scribe-element="JSCZ"
 						data-twtr-scribe-component="central-de-ajuda-do-ads"
 					>
-						Central de Ajuda do Ads
+						Ads Help Center
 					</a>
 
 					<a
@@ -222,7 +222,7 @@ export function Footer() {
 						data-twtr-scribe-element="JSCZ"
 						data-twtr-scribe-component="gerenciar-sua-conta"
 					>
-						Gerenciar sua conta
+						Managing your account
 					</a>
 
 					<a
@@ -234,7 +234,7 @@ export function Footer() {
 						data-twtr-scribe-element="JSCZ"
 						data-twtr-scribe-component="central-de-prefer-ncias-de-e-mail"
 					>
-						Central de Preferências de E-mail
+						Email Preference Center
 					</a>
 
 					<a
@@ -246,7 +246,7 @@ export function Footer() {
 						data-twtr-scribe-element="JSCZ"
 						data-twtr-scribe-component="regras-e-pol-ticas"
 					>
-						Regras e políticas
+						Rules and policies
 					</a>
 
 					<a
@@ -258,14 +258,14 @@ export function Footer() {
 						data-twtr-scribe-element="JSCZ"
 						data-twtr-scribe-component="fale-conosco"
 					>
-						Fale conosco
+						Contact us
 					</a>
 				</div>
 			</details>
 
 			<details className="w-full">
 				<summary className="h-12 text-sm font-bold flex items-center justify-between">
-					<span>Recursos do desenvolvedor</span>
+					<span>Developer resources</span>
 					<ChevronDownIcon className="size-3 fill-white" />
 				</summary>
 
@@ -279,7 +279,7 @@ export function Footer() {
 						data-twtr-scribe-element="JSCZ"
 						data-twtr-scribe-component="p-gina-do-desenvolvedor"
 					>
-						Página do desenvolvedor
+						Developer home
 					</a>
 
 					<a
@@ -291,7 +291,7 @@ export function Footer() {
 						data-twtr-scribe-element="JSCZ"
 						data-twtr-scribe-component="documenta-o"
 					>
-						Documentação
+						Documentation
 					</a>
 
 					<a
@@ -303,7 +303,7 @@ export function Footer() {
 						data-twtr-scribe-element="JSCZ"
 						data-twtr-scribe-component="f-runs"
 					>
-						Fóruns
+						Forums
 					</a>
 
 					<a
@@ -315,7 +315,7 @@ export function Footer() {
 						data-twtr-scribe-element="JSCZ"
 						data-twtr-scribe-component="comunidades"
 					>
-						Comunidades
+						Communities
 					</a>
 
 					<a
@@ -327,7 +327,7 @@ export function Footer() {
 						data-twtr-scribe-element="JSCZ"
 						data-twtr-scribe-component="blog-do-desenvolvedor"
 					>
-						Blog do desenvolvedor
+						Developer blog
 					</a>
 
 					<a
@@ -339,7 +339,7 @@ export function Footer() {
 						data-twtr-scribe-element="JSCZ"
 						data-twtr-scribe-component="blog-de-engenharia"
 					>
-						Blog de engenharia
+						Engineering blog
 					</a>
 
 					<a
@@ -351,14 +351,14 @@ export function Footer() {
 						data-twtr-scribe-element="JSCZ"
 						data-twtr-scribe-component="termos-do-desenvolvedor"
 					>
-						Termos do desenvolvedor
+						Developer terms
 					</a>
 				</div>
 			</details>
 
 			<details className="w-full">
 				<summary className="h-12 text-sm font-bold flex items-center justify-between">
-					<span>Recursos para empresas</span>
+					<span>Business resources</span>
 					<ChevronDownIcon className="size-3 fill-white" />
 				</summary>
 
@@ -372,7 +372,7 @@ export function Footer() {
 						data-twtr-scribe-element="JSCZ"
 						data-twtr-scribe-component="anunciar"
 					>
-						Anunciar
+						Advertise
 					</a>
 
 					<a
@@ -384,7 +384,7 @@ export function Footer() {
 						data-twtr-scribe-element="JSCZ"
 						data-twtr-scribe-component="x-para-empresas"
 					>
-						X para Empresas
+						X for business
 					</a>
 
 					<a
@@ -396,7 +396,7 @@ export function Footer() {
 						data-twtr-scribe-element="JSCZ"
 						data-twtr-scribe-component="recursos-e-guias"
 					>
-						Recursos e guias
+						Resources and guides
 					</a>
 
 					<a
@@ -408,7 +408,7 @@ export function Footer() {
 						data-twtr-scribe-element="JSCZ"
 						data-twtr-scribe-component="x-para-profissionais-do-marketing"
 					>
-						X para profissionais do marketing
+						X for marketers
 					</a>
 
 					<a
@@ -420,7 +420,7 @@ export function Footer() {
 						data-twtr-scribe-element="JSCZ"
 						data-twtr-scribe-component="insights-de-marketing"
 					>
-						Insights de marketing
+						Marketing insights
 					</a>
 
 					<a
@@ -432,7 +432,7 @@ export function Footer() {
 						data-twtr-scribe-element="JSCZ"
 						data-twtr-scribe-component="inspira-o-da-marca"
 					>
-						Inspiração da marca
+						Brand inspiration
 					</a>
 
 					<a
@@ -473,7 +473,7 @@ export function Footer() {
 					data-twtr-scribe-element="JSCZ"
 					data-twtr-scribe-component="privacidade"
 				>
-					Privacidade
+					Privacy
 				</a>
 
 				<a
@@ -485,11 +485,11 @@ export function Footer() {
 					data-twtr-scribe-element="JSCZ"
 					data-twtr-scribe-component="termos-e-condi-es"
 				>
-					Termos e condições
+					Terms and conditions
 				</a>
 
 				<button className="flex items-center gap-2" type="button">
-					Português
+					English
 					<ChevronDownIcon className="size-3 fill-white" />
 				</button>
 			</div>
