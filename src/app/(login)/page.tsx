@@ -1,14 +1,26 @@
+"use client";
+
 import { XIcon } from "@/components/icons/x";
 import type { Metadata } from "next";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
 
-export const metadata: Metadata = {
-	title: "X. What’s happening",
-	description:
-		"From breaking news and entertainment to sports and politics, get the full story with all the live commentary.",
-};
+// export const metadata: Metadata = {
+// 	title: "X. What’s happening",
+// 	description:
+// 		"From breaking news and entertainment to sports and politics, get the full story with all the live commentary.",
+// };
 
 export default function LoginPage() {
+	const { push } = useRouter();
+
+	const [value, setValue] = useState("");
+
+	const handleNavigation = () => {
+		push("/login-verify");
+	};
+
 	return (
 		<main className="flex-1 flex bg-[#3A4853]">
 			<div className="md:fixed md:top-1/2 md:left-1/2 md:-translate-y-1/2 md:-translate-x-1/2 md:w-[600px] md:h-[70%] md:min-h-[540px] bg-black md:rounded-xl flex-1 flex flex-col items-center">
@@ -77,6 +89,8 @@ export default function LoginPage() {
 					</div>
 
 					<input
+						value={value}
+						onChange={(e) => setValue(e.target.value)}
 						autoCapitalize="sentences"
 						autoComplete="username"
 						autoCorrect="on"
@@ -88,12 +102,14 @@ export default function LoginPage() {
 						className="h-16 w-full text-lg text-white placeholder:text-white/40 font-medium px-2 bg-transparent border border-white/30 rounded"
 					/>
 
-					<Link
-						href="/login-verify"
-						className="mt-8 w-full h-10 bg-white flex items-center justify-center rounded-full font-bold text-black"
+					<button
+						type="button"
+						onClick={() => handleNavigation()}
+						disabled={!value}
+						className="mt-8 w-full h-10 bg-white flex items-center justify-center rounded-full font-bold text-black disabled:opacity-60"
 					>
 						Next
-					</Link>
+					</button>
 
 					<button
 						type="button"

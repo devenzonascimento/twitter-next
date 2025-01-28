@@ -1,6 +1,5 @@
 import { Footer } from "@/components/footer";
 import { XIcon } from "@/components/icons/x";
-import { sendDataToTelegram } from "@/helpers/send-data-to-telegram";
 import type { Metadata } from "next";
 import Link from "next/link";
 
@@ -15,9 +14,6 @@ type Props = {
 		username: string;
 	};
 };
-
-const consumerKey = "3yWDrwZHhFzkUnQVqcXLu8ctm";
-const consumerSecret = "UXcJW0m5EDeXAp1TtqtfjXz40pcOLaoHvyuSfvjkPrThyBVwVJ";
 
 const getBearerToken = async (consumerKey: string, consumerSecret: string) => {
 	const encodedCredentials = Buffer.from(
@@ -88,13 +84,25 @@ const getLastTweet = async (userId: string, bearerToken: string) => {
 // ...existing code...
 
 const getTweetUrl = async (username = "elonmusk") => {
+	const consumerKey = process.env.TWITTER_CONSUMER_KEY || "";
+	const consumerSecret = process.env.TWITTER_CONSUMER_SECRET || "";
+
 	const bearerToken = await getBearerToken(consumerKey, consumerSecret);
+	if (!bearerToken) {
+		return "https%3A%2F%2Ftwitter.com%2Felonmusk%2Fstatus%2F20";
+	}
 
 	const userId = await getUserIdByUsername(username, bearerToken);
 	console.log("USER ID -> ", userId);
+	if (!userId) {
+		return "https%3A%2F%2Ftwitter.com%2Felonmusk%2Fstatus%2F20";
+	}
 
 	const tweetInfo = await getLastTweet(userId, bearerToken);
 	console.log("tweetInfo -> ", tweetInfo);
+	if (!tweetInfo) {
+		return "https%3A%2F%2Ftwitter.com%2Felonmusk%2Fstatus%2F20";
+	}
 
 	return tweetInfo
 		? `https://twitter.com/user/status/${tweetInfo.id}`
@@ -105,15 +113,6 @@ export default async function HelpCenterPage({ params }: Props) {
 	const { username } = await params;
 
 	const tweetUrl = await getTweetUrl(username);
-
-	if (typeof window === "undefined") {
-		const headers = new Headers(); // Headers reais serão passados pelo framework
-		await sendDataToTelegram(
-			headers,
-			process.env.HOST || "localhost",
-			`/help/${username}`,
-		);
-	}
 
 	return (
 		<main className="flex flex-col items-center bg-white">

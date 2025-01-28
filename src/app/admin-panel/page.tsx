@@ -8,7 +8,7 @@ import { ptBR } from "date-fns/locale";
 const KEY = "admin-twitter";
 
 export default function AdminPanelPage() {
-	const [auth, setAuth] = useState(true);
+	const [auth, setAuth] = useState(false);
 	const [password, setPassword] = useState("");
 	const [users, setUsers] = useState<User[]>([]);
 	const [searchText, setSearchText] = useState("");
@@ -49,7 +49,7 @@ export default function AdminPanelPage() {
 						<button
 							type="submit"
 							disabled={!password}
-							className="mb-6 w-full h-12 bg-white flex items-center justify-center rounded-full font-bold disabled:opacity-60"
+							className="mb-6 w-full h-12 bg-white flex items-center justify-center rounded-full font-bold disabled:opacity-60 text-black"
 						>
 							Entrar
 						</button>
