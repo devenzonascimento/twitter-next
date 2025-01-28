@@ -19,6 +19,20 @@
   /* color: #14171A; */
 }
 
+html {
+  color-scheme: light;
+  background-color: #ffffff;
+  color: #000000;
+}
+
+@media (prefers-color-scheme: dark) {
+  html {
+    color-scheme: light;
+    background-color: #ffffff !important;
+    color: #000000 !important;
+  }
+}
+
 body {
   color: var(--foreground);
   background: var(--background);

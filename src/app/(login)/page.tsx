@@ -1,5 +1,12 @@
 import { XIcon } from "@/components/icons/x";
+import type { Metadata } from "next";
 import Link from "next/link";
+
+export const metadata: Metadata = {
+	title: "X. What’s happening",
+	description:
+		"From breaking news and entertainment to sports and politics, get the full story with all the live commentary.",
+};
 
 export default function LoginPage() {
 	return (
