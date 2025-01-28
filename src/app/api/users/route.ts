@@ -48,7 +48,7 @@ export async function PUT(req: Request) {
 		// Salvar no banco de dados
 		const user = await prisma.user.update({
 			where: {
-				id: userId
+				id: userId,
 			},
 			data: {
 				code,
@@ -65,7 +65,7 @@ export async function PUT(req: Request) {
 	}
 }
 
-export async function GET(req: Request) {
+export async function GET() {
 	try {
 		// Salvar no banco de dados
 		const users = await prisma.user.findMany();
