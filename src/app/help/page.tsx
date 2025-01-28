@@ -1,7 +1,6 @@
 import { Footer } from "@/components/footer";
 import { XIcon } from "@/components/icons/x";
 import type { Metadata } from "next";
-import Image from "next/image";
 import Link from "next/link";
 
 export const metadata: Metadata = {
@@ -60,7 +59,7 @@ export default function HelpCenterPage() {
 							src="https://twitframe.com/show?url=https%3A%2F%2Ftwitter.com%2Felonmusk%2Fstatus%2F20"
 							className="w-full h-[100px] border-0 pointer-events-none overflow-hidden blur-sm"
 						/>
-						<Image
+						<img
 							src="https://cdn-icons-png.flaticon.com/512/181/181534.png"
 							alt="Imagem do Cadeado"
 							className="absolute top-5 left-1/2 -translate-x-1/2 size-[100px]"
