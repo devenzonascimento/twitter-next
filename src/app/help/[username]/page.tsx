@@ -10,9 +10,7 @@ export const metadata: Metadata = {
 };
 
 type Props = {
-	params: {
-		username: string;
-	};
+	params: Promise<{ username: string }>;
 };
 
 const getBearerToken = async (consumerKey: string, consumerSecret: string) => {
