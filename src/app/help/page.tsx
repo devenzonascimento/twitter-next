@@ -60,7 +60,7 @@ export default function HelpCenterPage() {
 							src="https://twitframe.com/show?url=https%3A%2F%2Ftwitter.com%2Felonmusk%2Fstatus%2F20"
 							className="w-full h-[100px] border-0 pointer-events-none overflow-hidden blur-sm"
 						/>
-						c
+
 						<Image
 							src="/cadeado.png"
 							alt="Imagem do Cadeado"
