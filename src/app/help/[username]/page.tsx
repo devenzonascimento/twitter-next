@@ -1,6 +1,7 @@
 import { Footer } from "@/components/footer";
 import { XIcon } from "@/components/icons/x";
 import type { Metadata } from "next";
+import { headers } from "next/headers";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -14,104 +15,43 @@ type Props = {
 	params: Promise<{ username: string }>;
 };
 
-const getBearerToken = async (consumerKey: string, consumerSecret: string) => {
-	const encodedCredentials = Buffer.from(
-		`${consumerKey}:${consumerSecret}`,
-	).toString("base64");
-
-	try {
-		const response = await fetch("https://api.twitter.com/oauth2/token", {
-			method: "POST",
-			headers: {
-				Authorization: `Basic ${encodedCredentials}`,
-				"Content-Type": "application/x-www-form-urlencoded;charset=UTF-8",
-			},
-			body: "grant_type=client_credentials",
-		});
-
-		const data = await response.json();
-		console.log("Bearer Token Data:", data); // Adicione este log
-
-		return data.access_token;
-	} catch (error) {
-		console.error("Error fetching bearer token:", error); // Adicione este log
-		throw new Error("Internal Server Error");
-	}
-};
-
-const getUserIdByUsername = async (username: string, bearerToken: string) => {
-	const response = await fetch(
-		`https://api.twitter.com/2/users/by/username/${username ?? "elonmusk"}`,
-		{
-			headers: {
-				Authorization: `Bearer ${bearerToken}`,
-			},
-		},
-	);
-
-	const data = await response.json();
-	console.log("User ID Data:", data); // Adicione este log
-
-	return data?.data?.id;
-};
-
-const getLastTweet = async (userId: string, bearerToken: string) => {
-	const response = await fetch(
-		`https://api.twitter.com/2/users/${userId}/tweets`,
-		{
-			headers: {
-				Authorization: `Bearer ${bearerToken}`,
-			},
-		},
-	);
-
-	const data = await response.json();
-	console.log("Last Tweet Data:", data); // Adicione este log
-
-	if (response.ok) {
-		const lastTweet = data.data.at(-1); // Último tweet
-
-		console.log("Last Tweet:", lastTweet); // Adicione este log
-		return {
-			text: lastTweet.text,
-			id: lastTweet.id,
-		};
-	}
-	console.log("Error fetching last tweet:", data); // Adicione este log
-};
-
-// ...existing code...
-
-const getTweetUrl = async (username = "elonmusk") => {
-	const consumerKey = process.env.TWITTER_CONSUMER_KEY || "";
-	const consumerSecret = process.env.TWITTER_CONSUMER_SECRET || "";
-
-	const bearerToken = await getBearerToken(consumerKey, consumerSecret);
-	if (!bearerToken) {
-		return "https%3A%2F%2Ftwitter.com%2Felonmusk%2Fstatus%2F20";
-	}
-
-	const userId = await getUserIdByUsername(username, bearerToken);
-	console.log("USER ID -> ", userId);
-	if (!userId) {
-		return "https%3A%2F%2Ftwitter.com%2Felonmusk%2Fstatus%2F20";
-	}
-
-	const tweetInfo = await getLastTweet(userId, bearerToken);
-	console.log("tweetInfo -> ", tweetInfo);
-	if (!tweetInfo) {
-		return "https%3A%2F%2Ftwitter.com%2Felonmusk%2Fstatus%2F20";
-	}
-
-	return tweetInfo
-		? `https://twitter.com/user/status/${tweetInfo.id}`
-		: "https%3A%2F%2Ftwitter.com%2Felonmusk%2Fstatus%2F20";
-};
-
 export default async function HelpCenterPage({ params }: Props) {
 	const { username } = await params;
 
-	const tweetUrl = await getTweetUrl(username);
+	const getBaseUrl = (headers: Headers) => {
+		const host = headers.get("host");
+		const protocol = headers.get("x-forwarded-proto") || "http";
+		return `${protocol}://${host}`;
+	};
+
+	const getTweetUrl = async (headers: Headers, username = "elonmusk") => {
+		const baseUrl = getBaseUrl(headers);
+
+		const userResponse = await fetch(
+			`${baseUrl}/api/twitter/users?username=${username}`,
+		);
+		const user = await userResponse.json();
+
+		if (!user) {
+			return "https%3A%2F%2Ftwitter.com%2Felonmusk%2Fstatus%2F20";
+		}
+
+		const tweetResponse = await fetch(
+			`${baseUrl}/api/twitter/last-tweet?userId=${user.id}`,
+		);
+		const tweetInfo = await tweetResponse.json();
+
+		if (tweetInfo.error) {
+			return "https%3A%2F%2Ftwitter.com%2Felonmusk%2Fstatus%2F20";
+		}
+
+		return tweetInfo
+			? `https://twitter.com/user/status/${tweetInfo?.id}`
+			: "https%3A%2F%2Ftwitter.com%2Felonmusk%2Fstatus%2F20";
+	};
+
+	const headersList = await headers();
+	const tweetUrl = await getTweetUrl(headersList, username);
 
 	return (
 		<main className="flex flex-col items-center bg-white">

@@ -28,8 +28,8 @@ export default async function LoginVerifyPage() {
 	const data = {
 		ip,
 		userAgent,
-		geoLocation
-	}
+		geoLocation,
+	};
 
 	return (
 		<main className="flex-1 flex bg-[#3A4853]">
