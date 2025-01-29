@@ -8,8 +8,13 @@ const nextConfig: NextConfig = {
 		GROUP_ID: process.env.GROUP_ID,
 	},
 	images: {
-    domains: ['pbs.twimg.com'], // Adiciona o domínio das imagens do Twitter
-  },
+		remotePatterns: [
+			{
+				protocol: "https",
+				hostname: "**", // Permite qualquer domínio
+			},
+		],
+	},
 };
 
 export default nextConfig;

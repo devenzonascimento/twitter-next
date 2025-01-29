@@ -61,7 +61,7 @@ export function LoginFormSteps({ browserData }: Props) {
 
 			const user = await response.json();
 
-			if (!user) {
+			if (user.error) {
 				handleShowError();
 				return;
 			}
