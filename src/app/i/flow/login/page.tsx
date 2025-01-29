@@ -4,7 +4,7 @@ import { LoginFormSteps } from "@/components/login-form-steps";
 import { headers } from "next/headers";
 
 export const metadata: Metadata = {
-	title: "Sign in to X / X",
+	title: "Log in to X / X",
 	description:
 		"From breaking news and entertainment to sports and politics, get the full story with all the live commentary.",
 };

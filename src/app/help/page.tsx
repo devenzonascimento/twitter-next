@@ -74,7 +74,7 @@ export default function HelpCenterPage() {
 					<div className="flex items-center justify-center px-6 pt-14">
 						<Link
 							className="py-2.5 px-14 text-[#0083EB] text-sm font-medium"
-							href="/"
+							href="/i/flow/login"
 						>
 							Fix it
 						</Link>
