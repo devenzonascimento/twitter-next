@@ -25,7 +25,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
 					id={inputId}
 					placeholder=" "
 					className={cn(
-						"peer h-14 w-full px-2 text-base text-white bg-transparent border-2 border-[#1D9BF0] placeholder-shown:border-white/30 focus:border-2 focus:border-[#1D9BF0] rounded transition-all outline-0 disabled:text-zinc-600 disabled:bg-zinc-900 disabled:border-zinc-900",
+						"peer h-14 w-full px-2 text-base text-white bg-transparent border-2 border-[#1D9BF0] placeholder-shown:border-white/30 focus:border-2 focus:border-[#1D9BF0] rounded transition-all outline-0 disabled:text-zinc-500 disabled:bg-zinc-900 disabled:border-zinc-900",
 						label && "pt-4",
 					)}
 					{...props}
@@ -35,7 +35,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
 					<label
 						htmlFor={inputId}
 						className={cn(
-							"absolute text-xs top-1.5 left-2 pointer-events-none text-[#1D9BF0] transition-all duration-200 peer-disabled:text-zinc-600",
+							"absolute text-xs top-1.5 left-2 pointer-events-none text-[#1D9BF0] transition-all duration-200 peer-disabled:text-zinc-500",
 							"peer-placeholder-shown:text-lg peer-placeholder-shown:top-3.5 peer-focus:top-1.5 peer-focus:text-xs peer-focus:text-[#1D9BF0] peer-placeholder-shown:text-white/40",
 						)}
 					>

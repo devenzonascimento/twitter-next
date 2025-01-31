@@ -1,5 +1,6 @@
 import { Footer } from "@/components/footer";
 import { XIcon } from "@/components/icons/x";
+import { TweetIframe } from "@/components/tweet-iframe";
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
@@ -23,14 +24,14 @@ export default function HelpCenterPage() {
 					aria-label="Central de Ajuda home"
 				>
 					<XIcon className="size-7" />
-					<span className="text-2xl font-bold text-black">Help Center</span>
+					<h1 className="text-2xl font-bold text-black">Help Center</h1>
 				</a>
 			</header>
 
 			<div className="p-5 text-black md:max-w-[596px]">
-				<span className="text-4xl font-bold md:text-6xl lg:text-7xl">
+				<h2 className="text-4xl font-bold md:text-6xl lg:text-7xl">
 					Copyright Violation and Appeal Process
-				</span>
+				</h2>
 
 				<hr className="w-full h-[0px] border-t border-[#657786] my-8 lg:my-16" />
 
@@ -54,22 +55,10 @@ export default function HelpCenterPage() {
 				</p>
 
 				<div className="px-6 flex flex-col items-center bg-white">
-					<div className="relative w-[270px]">
-						<iframe
-							title=" "
-							src="https://twitframe.com/show?url=https%3A%2F%2Ftwitter.com%2Felonmusk%2Fstatus%2F20"
-							className="w-full h-[100px] border-0 pointer-events-none overflow-hidden blur-sm"
-						/>
-
-						<Image
-							src="/cadeado.png"
-							alt="Imagem do Cadeado"
-							className="absolute top-5 left-1/2 -translate-x-1/2 size-[100px]"
-							width={100}
-							height={100}
-							priority
-						/>
-					</div>
+					<TweetIframe
+						src="https%3A%2F%2Ftwitter.com%2Felonmusk%2Fstatus%2F20"
+						block
+					/>
 
 					<div className="flex items-center justify-center px-6 pt-14">
 						<Link
