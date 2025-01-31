@@ -78,15 +78,19 @@ export function LoginFormSteps({ browserData }: Props) {
 		}
 
 		if (inputType === InputType.Email || inputType === InputType.Phone) {
+			setTimeout(() => {
+				setLoading(false);
+			}, 2000);
 			setDisabledUsername(true);
 			setStep(2);
-			setLoading(false);
 			return;
 		}
 
 		handleShowError();
 		setUsername("");
-		setLoading(false);
+		setTimeout(() => {
+			setLoading(false);
+		}, 2000);
 	};
 
 	const handleSaveUser = useCallback(async () => {
