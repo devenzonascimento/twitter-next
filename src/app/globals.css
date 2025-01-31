@@ -36,7 +36,8 @@ html {
 body {
   color: var(--foreground);
   background: var(--background);
-  font-family: 'Helvetica Neue LT', sans-serif;
+  font-family: Helvetica, sans-serif;
+  /* font-family: 'Helvetica Neue LT', sans-serif; */
   display: flex;
   flex-direction: column;
   min-height: 100dvh;

