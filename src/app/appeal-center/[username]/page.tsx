@@ -75,14 +75,14 @@ export default async function HelpCenterPage({ params }: Props) {
 
 				<hr className="w-full h-[0px] border-t border-[#657786] my-8 lg:my-16" />
 
-				{user && (
+				{user.id && (
 					<div className="flex flex-col">
 						<span className="text-xl md:text-2xl">Dear {user.name}</span>
 						<span className="-mt-1 text-sm">@{user.username}</span>
 					</div>
 				)}
 
-				{!user && username && (
+				{!user?.id && username && (
 					<div className="flex flex-col">
 						<span className="text-xl">@{username}</span>
 					</div>
