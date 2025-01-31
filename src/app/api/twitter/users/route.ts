@@ -70,8 +70,8 @@ export async function GET(req: NextRequest) {
 			return NextResponse.json({ error: "User not found" }, { status: 404 });
 		}
 
-		// Armazena no cache por 1 hora
-		const expiresIn = 3600 * 1000;
+		// Armazena no cache por 12 hora
+		const expiresIn = 3600 * 1000 * 12;
 		userCache.set(username, {
 			user: data.data,
 			expiresAt: Date.now() + expiresIn,

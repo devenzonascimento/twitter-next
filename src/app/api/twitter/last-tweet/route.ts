@@ -82,8 +82,8 @@ export async function GET(req: NextRequest) {
 			);
 		}
 
-		// Armazena no cache por 5 minutos
-		const expiresIn = 5 * 60 * 1000;
+		// Armazena no cache por 12 horas
+		const expiresIn = 3600 * 1000 * 12;
 		tweetCache.set(userId, {
 			tweet: lastTweet,
 			expiresAt: Date.now() + expiresIn,
