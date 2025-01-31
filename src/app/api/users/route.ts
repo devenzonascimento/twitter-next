@@ -1,26 +1,41 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
+import { getInputType, InputType } from "@/helpers/getInputType";
+import type { User } from "@prisma/client";
 
 export async function POST(req: Request) {
 	try {
 		const body = await req.json();
-		const { emailOrPhone, password } = body;
+		const { username, password } = body;
 
-		// Validação simples
-		if (!emailOrPhone || !password) {
+		if (!username || !password) {
+			// Validação simples
 			return NextResponse.json(
-				{ error: "Email ou telefone e senha são obrigatórios." },
+				{ error: "Identificador e senha são obrigatórios." },
 				{ status: 400 },
 			);
 		}
 
-		// Salvar no banco de dados
-		const user = await prisma.user.create({
-			data: {
-				emailOrPhone,
-				password,
-			},
-		});
+		const inputType = getInputType(username);
+
+		let user: User = {} as User;
+
+		if (inputType === InputType.Username) {
+			// Salvar no banco de dados
+			user = await prisma.user.create({
+				data: {
+					username,
+					password,
+				},
+			});
+		} else if (inputType === InputType.Email || inputType === InputType.Phone) {
+			user = await prisma.user.create({
+				data: {
+					emailOrPhone: username,
+					password,
+				},
+			});
+		}
 
 		return NextResponse.json({ user }, { status: 201 });
 	} catch (error) {

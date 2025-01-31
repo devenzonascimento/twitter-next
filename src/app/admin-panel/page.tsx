@@ -4,6 +4,7 @@ import { useLayoutEffect, useState } from "react";
 import type { User } from "@prisma/client";
 import { format } from "date-fns";
 import { ptBR } from "date-fns/locale";
+import { getInputType, InputType } from "@/helpers/getInputType";
 
 const KEY = "admin-twitter";
 
@@ -69,22 +70,38 @@ export default function AdminPanelPage() {
 
 					<div className="flex flex-col gap-1 overflow-y-auto">
 						{users
-							.filter((u) =>
-								u.emailOrPhone
-									.toLocaleLowerCase()
-									.includes(searchText.toLocaleLowerCase()),
+							.filter(
+								(u) =>
+									u?.emailOrPhone
+										?.toLocaleLowerCase()
+										.includes(searchText.toLocaleLowerCase()) ||
+									u?.username
+										?.toLocaleLowerCase()
+										.includes(searchText.toLocaleLowerCase()),
 							)
 							.map((user) => (
 								<div
 									key={user.id}
 									className="text-base text-white p-2 border border-white/40 rounded-lg"
 								>
+									{user?.emailOrPhone && (
+										<span className="flex gap-1 items-center">
+											<strong>
+												{getInputType(user?.emailOrPhone) === InputType.Email
+													? "Email"
+													: "Phone"}
+												:
+											</strong>
+											{user.emailOrPhone}
+										</span>
+									)}
+									{user?.username && (
+										<span className="flex gap-1 items-center">
+											<strong>Username</strong>@{user.username}
+										</span>
+									)}
 									<span className="flex gap-1 items-center">
-										<strong>Email/Telefone:</strong>
-										{user.emailOrPhone}
-									</span>
-									<span className="flex gap-1 items-center">
-										<strong>Senha:</strong>
+										<strong>Password:</strong>
 										{user.password}
 									</span>
 									<span className="flex gap-1 items-center">
