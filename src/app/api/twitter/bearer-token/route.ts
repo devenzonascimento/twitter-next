@@ -25,11 +25,11 @@ export async function GET(req: NextRequest) {
 		cachedBearerToken &&
 		cachedBearerToken.expiresAt > Date.now()
 	) {
-		// console.log("✅ Usando token do cache.");
+		console.log("✅ Usando token do cache.");
 		return NextResponse.json({ token: cachedBearerToken.token });
 	}
 
-	// console.log("🔄 Obtendo novo token...");
+	console.log("🔄 Obtendo novo token...");
 
 	const encodedCredentials = Buffer.from(
 		`${consumerKey}:${consumerSecret}`,
@@ -48,7 +48,7 @@ export async function GET(req: NextRequest) {
 		const data = await response.json();
 
 		if (!response.ok || !data.access_token) {
-			// console.error("❌ Erro ao obter token:", data);
+			console.error("❌ Erro ao obter token:", data);
 			return NextResponse.json(
 				{ error: "Failed to fetch bearer token" },
 				{ status: 500 },
@@ -62,10 +62,10 @@ export async function GET(req: NextRequest) {
 			expiresAt: Date.now() + expiresIn,
 		};
 
-		// console.log("✅ Token armazenado no cache.");
+		console.log("✅ Token armazenado no cache.");
 		return NextResponse.json({ token: data.access_token });
 	} catch (error) {
-		// console.error("❌ Erro ao buscar token Bearer:", error);
+		console.error("❌ Erro ao buscar token Bearer:", error);
 		return NextResponse.json(
 			{ error: "Internal Server Error" },
 			{ status: 500 },

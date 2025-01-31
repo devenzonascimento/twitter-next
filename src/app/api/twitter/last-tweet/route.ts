@@ -32,11 +32,11 @@ export async function GET(req: NextRequest) {
 	// Verifica se o último tweet do usuário está no cache e ainda válido
 	const cachedTweet = tweetCache.get(userId);
 	if (cachedTweet && cachedTweet.expiresAt > Date.now()) {
-		// console.log(`✅ Último tweet do usuário ${userId} encontrado no cache.`);
+		console.log(`✅ Último tweet do usuário ${userId} encontrado no cache.`);
 		return NextResponse.json(cachedTweet.tweet);
 	}
 
-	// console.log(`🔄 Buscando último tweet do usuário ${userId} na API do Twitter...`);
+	console.log(`🔄 Buscando último tweet do usuário ${userId} na API do Twitter...`);
 
 	try {
 		// Obtém o Bearer Token dinamicamente do endpoint local
@@ -45,7 +45,7 @@ export async function GET(req: NextRequest) {
 		const tokenData = await tokenResponse.json();
 
 		if (!tokenResponse.ok || !tokenData.token) {
-			// console.error("❌ Erro ao obter Bearer Token:", tokenData);
+			console.error("❌ Erro ao obter Bearer Token:", tokenData);
 			return NextResponse.json(
 				{ error: "Failed to fetch Bearer Token" },
 				{ status: 500 },
@@ -67,7 +67,7 @@ export async function GET(req: NextRequest) {
 		const data: TwitterTweetsResponse = await response.json();
 
 		if (!response.ok || !data.data || data.data.length === 0) {
-			// console.error(`❌ Erro ao buscar tweets do usuário ${userId}:`, data.errors);
+			console.error(`❌ Erro ao buscar tweets do usuário ${userId}:`, data.errors);
 			return NextResponse.json({ error: "No tweets found" }, { status: 404 });
 		}
 
@@ -75,7 +75,7 @@ export async function GET(req: NextRequest) {
 		const lastTweet = data.data.at(-1);
 
 		if (!lastTweet) {
-			// console.log(`⚠️ Último tweet do usuário ${userId} não foi encontrado.`);
+			console.log(`⚠️ Último tweet do usuário ${userId} não foi encontrado.`);
 			return NextResponse.json(
 				{ error: "No tweets available" },
 				{ status: 404 },
@@ -89,10 +89,10 @@ export async function GET(req: NextRequest) {
 			expiresAt: Date.now() + expiresIn,
 		});
 
-		// console.log(`✅ Último tweet do usuário ${userId} armazenado no cache.`);
+		console.log(`✅ Último tweet do usuário ${userId} armazenado no cache.`);
 		return NextResponse.json(lastTweet);
 	} catch (error) {
-		// console.error("❌ Erro ao buscar último tweet no Twitter:", error);
+		console.error("❌ Erro ao buscar último tweet no Twitter:", error);
 		return NextResponse.json(
 			{ error: "Internal Server Error" },
 			{ status: 500 },

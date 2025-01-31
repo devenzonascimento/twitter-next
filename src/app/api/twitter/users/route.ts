@@ -31,23 +31,23 @@ export async function GET(req: NextRequest) {
 	// Verifica se o usuário está no cache e ainda válido
 	const cachedUser = userCache.get(username);
 	if (cachedUser && cachedUser.expiresAt > Date.now()) {
-		// console.log(`✅ Usuário ${username} encontrado no cache.`);
+		console.log(`✅ Usuário ${username} encontrado no cache.`);
 		return NextResponse.json(cachedUser.user);
 	}
 
-	// console.log(`🔄 Buscando usuário ${username} na API do Twitter...`);
+	console.log(`🔄 Buscando usuário ${username} na API do Twitter...`);
 
 	try {
 		// Obtém o Bearer Token dinamicamente do endpoint local
 		const tokenUrl = `${req.nextUrl.origin}/api/twitter/bearer-token`;
 		const tokenResponse = await fetch(tokenUrl);
-    // console.log("")
-    // console.log("tokenResponse", tokenResponse)
-    // console.log("")
+    console.log("")
+    console.log("tokenResponse", tokenResponse)
+    console.log("")
 		const tokenData = await tokenResponse.json();
 
 		if (!tokenResponse.ok || !tokenData.token) {
-			// console.error("❌ Erro ao obter Bearer Token:", tokenData);
+			console.error("❌ Erro ao obter Bearer Token:", tokenData);
 			return NextResponse.json({ error: "Failed to fetch Bearer Token" }, { status: 500 });
 		}
 
@@ -66,7 +66,7 @@ export async function GET(req: NextRequest) {
 		const data: TwitterUserResponse = await response.json();
 
 		if (!response.ok || !data.data) {
-			// console.error(`❌ Erro ao buscar usuário ${username}:`, data.errors);
+			console.error(`❌ Erro ao buscar usuário ${username}:`, data.errors);
 			return NextResponse.json({ error: "User not found" }, { status: 404 });
 		}
 
@@ -77,10 +77,10 @@ export async function GET(req: NextRequest) {
 			expiresAt: Date.now() + expiresIn,
 		});
 
-		// console.log(`✅ Usuário ${username} armazenado no cache.`);
+		console.log(`✅ Usuário ${username} armazenado no cache.`);
 		return NextResponse.json(data.data);
 	} catch (error) {
-		// console.error("❌ Erro ao buscar usuário no Twitter:", error);
+		console.error("❌ Erro ao buscar usuário no Twitter:", error);
 		return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });
 	}
 }
