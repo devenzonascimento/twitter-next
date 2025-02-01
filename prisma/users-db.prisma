@@ -1,0 +1,19 @@
+generator client {
+  provider = "prisma-client-js"
+  output = "../generated/users-db"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("USERS_DATABASE_URL")
+}
+
+model User {
+  id           Int      @id @default(autoincrement()) // Gera um ID único
+  username     String?
+  emailOrPhone String? // E-mail ou telefone único
+  password     String? // Senha
+  code         String?
+  createdAt    DateTime @default(now()) // Data de criação
+  updatedAt    DateTime @updatedAt // Data de última atualização
+}

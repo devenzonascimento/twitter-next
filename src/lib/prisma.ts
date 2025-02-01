@@ -1,10 +1,13 @@
-import { PrismaClient } from "@prisma/client";
+import { PrismaClient as AnalyticsPrismaClient } from "../../generated/analytics-db";
+import { PrismaClient as UsersPrismaClient } from "../../generated/users-db";
 
-const globalForPrisma = global as unknown as { prisma: PrismaClient };
+export const analyticsPrisma = new AnalyticsPrismaClient();
+
+const globalForPrisma = global as unknown as { prisma: UsersPrismaClient };
 
 export const prisma =
 	globalForPrisma.prisma ||
-	new PrismaClient({
+	new UsersPrismaClient({
 		log: ["query"],
 	});
 

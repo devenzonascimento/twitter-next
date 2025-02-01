@@ -1,0 +1,14 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../generated/analytics-db"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = "postgresql://neondb_owner:npg_1zUxyegdCQH8@ep-autumn-art-a80hmcq4-pooler.eastus2.azure.neon.tech/neondb?sslmode=require"
+}
+
+model Analytics {
+  uuid String  @id @default(cuid())
+  on   Boolean
+}

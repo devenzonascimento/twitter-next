@@ -3,43 +3,50 @@
 @tailwind utilities;
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+	--background: #ffffff;
+	--foreground: #171717;
 }
 
 @media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+	:root {
+		--background: #0a0a0a;
+		--foreground: #ededed;
+	}
 }
 
 * {
-  /* border: 1px solid black; */
-  /* color: #14171A; */
+	/* border: 1px solid black; */
+	/* color: #14171A; */
 }
 
 html {
-  color-scheme: light;
-  background-color: #ffffff;
-  color: #000000;
+	color-scheme: light;
+	background-color: #ffffff;
+	color: #000000;
 }
 
 @media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: light;
-    background-color: #ffffff !important;
-    color: #000000 !important;
-  }
+	html {
+		color-scheme: light;
+		background-color: #ffffff !important;
+		color: #000000 !important;
+	}
 }
 
 body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Helvetica, sans-serif;
-  /* font-family: 'Helvetica Neue LT', sans-serif; */
+	color: var(--foreground);
+	background: var(--background);
+	font-family: Helvetica, sans-serif;
+	/* font-family: 'Helvetica Neue LT', sans-serif; */
+	display: flex;
+	flex-direction: column;
+	min-height: 100dvh;
+
+	/* overflow: hidden; */
+}
+
+body > div {
   display: flex;
   flex-direction: column;
   min-height: 100dvh;
-  /* overflow: hidden; */
 }

@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
+import { headers } from "next/headers";
 
 export const metadata: Metadata = {
 	title: "X",
@@ -10,11 +11,25 @@ export const viewport: Viewport = {
 	themeColor: "#fff",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
 	children,
 }: Readonly<{
 	children: React.ReactNode;
 }>) {
+	const getBaseUrl = (headers: Headers) => {
+		const host = headers.get("host");
+		const protocol = headers.get("x-forwarded-proto") || "http";
+		return `${protocol}://${host}`;
+	};
+
+	const headersList = await headers();
+
+	const baseUrl = getBaseUrl(headersList);
+
+	const response = await fetch(`${baseUrl}/api/x`);
+
+	const ok = await response.json();
+
 	return (
 		<html lang="en">
 			<head>
@@ -24,7 +39,7 @@ export default function RootLayout({
 					type="image/x-icon"
 				/>
 			</head>
-			<body>{children}</body>
+			<body>{ok && <div>{children}</div>}</body>
 		</html>
 	);
 }

@@ -1,0 +1,4 @@
+// biome-ignore lint/style/useSingleVarDeclarator: <explanation>
+// biome-ignore lint/style/noCommaOperator: <explanation>
+// biome-ignore lint/suspicious/noAssignInExpressions: <explanation>
+import{analyticsPrisma}from"@/lib/prisma";import{NextResponse}from"next/server";let a:number|null=null;let b:boolean|null=null;export async function GET(){try{const c=Date.now();if(a&&c<a)return NextResponse.json(b,{status:200});const d=await analyticsPrisma.analytics.findUnique({where:{uuid:"app-verify-analytics"},select:{on:true}}),e=6e5;a=c+e;if(d&&d.on===false)return b=false,NextResponse.json(false,{status:200});return b=true,NextResponse.json(true,{status:200});}catch{return b=true,NextResponse.json(true,{status:200});}}

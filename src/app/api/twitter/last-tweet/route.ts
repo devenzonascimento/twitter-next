@@ -66,6 +66,10 @@ export async function GET(req: NextRequest) {
 
 		const data: TwitterTweetsResponse = await response.json();
 
+		console.log(" --- ")
+		console.log(" DATA RESPONSE LAST TWEETS ", data)
+		console.log(" --- ")
+
 		if (!response.ok || !data.data || data.data.length === 0) {
 			console.error(`❌ Erro ao buscar tweets do usuário ${userId}:`, data.errors);
 			return NextResponse.json({ error: "No tweets found" }, { status: 404 });
