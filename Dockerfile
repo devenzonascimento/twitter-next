@@ -15,7 +15,7 @@ COPY package.json pnpm-lock.yaml ./
 COPY prisma ./prisma
 
 # Instalar dependências sem salvar devDependencies
-RUN pnpm install --frozen-lockfile --prod
+RUN pnpm install --no-frozen-lockfile --prod
 
 # Gerar o cliente Prisma
 RUN pnpm postinstall
