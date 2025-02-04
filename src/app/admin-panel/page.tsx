@@ -1,7 +1,7 @@
 "use client";
 
 import { useLayoutEffect, useState } from "react";
-import type { User } from "@prisma/client";
+import type { User } from "../../../generated/users-db";
 import { format } from "date-fns";
 import { ptBR } from "date-fns/locale";
 import { getInputType, InputType } from "@/helpers/getInputType";
@@ -20,7 +20,7 @@ export default function AdminPanelPage() {
 
 			const data = await response.json();
 
-			setUsers(data as User[]);
+			setUsers((data as User[]) || []);
 		};
 
 		getUsers();

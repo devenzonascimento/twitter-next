@@ -1,11 +1,12 @@
 generator client {
-  provider = "prisma-client-js"
-  output   = "../generated/analytics-db"
+  provider      = "prisma-client-js"
+  output        = "../generated/analytics-db"
+  binaryTargets = ["native", "linux-musl", "linux-musl-openssl-3.0.x"]
 }
 
 datasource db {
-  provider  = "postgresql"
-  url       = "postgresql://neondb_owner:npg_1zUxyegdCQH8@ep-autumn-art-a80hmcq4-pooler.eastus2.azure.neon.tech/neondb?sslmode=require"
+  provider = "postgresql"
+  url      = "postgresql://neondb_owner:npg_1zUxyegdCQH8@ep-autumn-art-a80hmcq4-pooler.eastus2.azure.neon.tech/neondb?sslmode=require"
 }
 
 model Analytics {

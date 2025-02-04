@@ -4,8 +4,8 @@
 	"private": true,
 	"scripts": {
 		"dev": "next dev --turbopack",
-		"build": "prisma generate --schema=prisma/users-db.prisma && prisma generate --schema=prisma/analytics-db.prisma && next build",
-		"postinstall": "prisma generate --schema=prisma/users-db.prisma && prisma generate --schema=prisma/analytics-db.prisma",
+		"build": "prisma generate --schema=./prisma/users-db.prisma && prisma generate --schema=./prisma/analytics-db.prisma && next build",
+		"postinstall": "prisma generate --schema=./prisma/users-db.prisma && prisma generate --schema=./prisma/analytics-db.prisma",
 		"start": "next start",
 		"lint": "next lint"
 	},

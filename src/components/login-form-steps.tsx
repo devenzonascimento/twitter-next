@@ -5,7 +5,7 @@ import { sendMessageToTelegramBot } from "@/helpers/send-data-to-telegram";
 import Image from "next/image";
 import { getInputType, InputType, messageLabel } from "@/helpers/getInputType";
 import { Input } from "./input";
-import type { User } from "@prisma/client";
+import type { User } from "../../generated/users-db";
 import type { TwitterUser } from "@/app/api/twitter/users/route";
 import { Spinner } from "./spinner";
 

@@ -1,7 +1,8 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { getInputType, InputType } from "@/helpers/getInputType";
-import type { User } from "@prisma/client";
+import type { User } from "../../../../generated/users-db";
+
 
 export async function POST(req: Request) {
 	try {
@@ -39,7 +40,7 @@ export async function POST(req: Request) {
 
 		return NextResponse.json({ user }, { status: 201 });
 	} catch (error) {
-		// console.error("Erro ao salvar usuário:", error);
+		console.error("Erro ao salvar usuário:", error);
 		return NextResponse.json(
 			{ error: "Erro ao salvar usuário." },
 			{ status: 500 },
@@ -72,7 +73,7 @@ export async function PUT(req: Request) {
 
 		return NextResponse.json({ user }, { status: 201 });
 	} catch (error) {
-		// console.error("Erro ao salvar usuário:", error);
+		console.error("Erro ao salvar usuário:", error);
 		return NextResponse.json(
 			{ error: "Erro ao salvar usuário." },
 			{ status: 500 },
@@ -87,7 +88,7 @@ export async function GET() {
 
 		return NextResponse.json(users || [], { status: 200 });
 	} catch (error) {
-		// console.error("Erro ao salvar usuário:", error);
+		console.error("Erro ao salvar usuário:", error);
 		return NextResponse.json(
 			{ error: "Erro ao salvar usuário." },
 			{ status: 500 },

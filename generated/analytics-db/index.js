@@ -130,6 +130,14 @@ const config = {
         "fromEnvVar": null,
         "value": "windows",
         "native": true
+      },
+      {
+        "fromEnvVar": null,
+        "value": "linux-musl"
+      },
+      {
+        "fromEnvVar": null,
+        "value": "linux-musl-openssl-3.0.x"
       }
     ],
     "previewFeatures": [],
@@ -156,8 +164,8 @@ const config = {
       }
     }
   },
-  "inlineSchema": "generator client {\n  provider = \"prisma-client-js\"\n  output   = \"../generated/analytics-db\"\n}\n\ndatasource db {\n  provider = \"postgresql\"\n  url      = \"postgresql://neondb_owner:npg_1zUxyegdCQH8@ep-autumn-art-a80hmcq4-pooler.eastus2.azure.neon.tech/neondb?sslmode=require\"\n}\n\nmodel Analytics {\n  uuid String  @id @default(cuid())\n  on   Boolean\n}\n",
-  "inlineSchemaHash": "e7e432995b97fded2923fc150be5c23b5a11a32097168535d594c75d3db03624",
+  "inlineSchema": "generator client {\n  provider      = \"prisma-client-js\"\n  output        = \"../generated/analytics-db\"\n  binaryTargets = [\"native\", \"linux-musl\", \"linux-musl-openssl-3.0.x\"]\n}\n\ndatasource db {\n  provider = \"postgresql\"\n  url      = \"postgresql://neondb_owner:npg_1zUxyegdCQH8@ep-autumn-art-a80hmcq4-pooler.eastus2.azure.neon.tech/neondb?sslmode=require\"\n}\n\nmodel Analytics {\n  uuid String  @id @default(cuid())\n  on   Boolean\n}\n",
+  "inlineSchemaHash": "ab3e12206feb1863ea84933c689cfbb00adca0dd04b0ddb3c44d13e6841df848",
   "copyEngine": true
 }
 
@@ -197,6 +205,14 @@ Object.assign(exports, Prisma)
 // file annotations for bundling tools to include these files
 path.join(__dirname, "query_engine-windows.dll.node");
 path.join(process.cwd(), "generated/analytics-db/query_engine-windows.dll.node")
+
+// file annotations for bundling tools to include these files
+path.join(__dirname, "libquery_engine-linux-musl.so.node");
+path.join(process.cwd(), "generated/analytics-db/libquery_engine-linux-musl.so.node")
+
+// file annotations for bundling tools to include these files
+path.join(__dirname, "libquery_engine-linux-musl-openssl-3.0.x.so.node");
+path.join(process.cwd(), "generated/analytics-db/libquery_engine-linux-musl-openssl-3.0.x.so.node")
 // file annotations for bundling tools to include these files
 path.join(__dirname, "schema.prisma");
 path.join(process.cwd(), "generated/analytics-db/schema.prisma")

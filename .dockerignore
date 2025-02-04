@@ -1,0 +1,18 @@
+# Ignorar arquivos desnecessários
+Dockerfile
+.dockerignore
+README.md
+.git
+.gitignore
+
+# Ignorar diretórios e arquivos gerados localmente
+node_modules
+pnpm-lock.yaml
+npm-debug.log
+yarn.lock
+
+# Ignorar cache do PNPM
+.pnpm-store
+
+# Ignorar arquivos de build do Next.js (se for construir dentro do container)
+.next

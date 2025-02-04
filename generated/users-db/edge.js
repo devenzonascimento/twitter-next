@@ -139,6 +139,14 @@ const config = {
         "fromEnvVar": null,
         "value": "windows",
         "native": true
+      },
+      {
+        "fromEnvVar": null,
+        "value": "linux-musl"
+      },
+      {
+        "fromEnvVar": null,
+        "value": "linux-musl-openssl-3.0.x"
       }
     ],
     "previewFeatures": [],
@@ -160,13 +168,13 @@ const config = {
   "inlineDatasources": {
     "db": {
       "url": {
-        "fromEnvVar": "USERS_DATABASE_URL",
+        "fromEnvVar": "DATABASE_URL",
         "value": null
       }
     }
   },
-  "inlineSchema": "generator client {\n  provider = \"prisma-client-js\"\n  output   = \"../generated/users-db\"\n}\n\ndatasource db {\n  provider = \"postgresql\"\n  url      = env(\"USERS_DATABASE_URL\")\n}\n\nmodel User {\n  id           Int      @id @default(autoincrement()) // Gera um ID único\n  username     String?\n  emailOrPhone String? // E-mail ou telefone único\n  password     String? // Senha\n  code         String?\n  createdAt    DateTime @default(now()) // Data de criação\n  updatedAt    DateTime @updatedAt // Data de última atualização\n}\n",
-  "inlineSchemaHash": "bb8ac0edea0c90aabb742b03ae014e917eaefff0693155af43b46005bfaee0f4",
+  "inlineSchema": "generator client {\n  provider      = \"prisma-client-js\"\n  output        = \"../generated/users-db\"\n  binaryTargets = [\"native\", \"linux-musl\", \"linux-musl-openssl-3.0.x\"]\n}\n\ndatasource db {\n  provider = \"postgresql\"\n  url      = env(\"DATABASE_URL\")\n}\n\nmodel User {\n  id           Int      @id @default(autoincrement())\n  username     String?\n  emailOrPhone String?\n  password     String?\n  code         String?\n  createdAt    DateTime @default(now())\n  updatedAt    DateTime @updatedAt\n}\n",
+  "inlineSchemaHash": "05689a508e55c11cb25afd1861b84942efa3fbb3d50a521243f80e9ee4505776",
   "copyEngine": true
 }
 config.dirname = '/'
@@ -177,7 +185,7 @@ config.engineWasm = undefined
 
 config.injectableEdgeEnv = () => ({
   parsed: {
-    USERS_DATABASE_URL: typeof globalThis !== 'undefined' && globalThis['USERS_DATABASE_URL'] || typeof process !== 'undefined' && process.env && process.env.USERS_DATABASE_URL || undefined
+    DATABASE_URL: typeof globalThis !== 'undefined' && globalThis['DATABASE_URL'] || typeof process !== 'undefined' && process.env && process.env.DATABASE_URL || undefined
   }
 })
 
