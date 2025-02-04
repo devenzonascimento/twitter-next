@@ -1,41 +1,36 @@
-# Usando uma imagem menor e otimizada para produção
+# Etapa de build
 FROM node:22.11.0-alpine AS builder
 
-# Definir diretório de trabalho
 WORKDIR /app
 
-# Instalar dependências necessárias
+# Instalar dependências essenciais
 RUN apk add --no-cache curl
 
-# Instalar PNPM globalmente
-RUN npm install -g pnpm
+# Copiar package.json e package-lock.json para aproveitar cache do Docker
+COPY package.json package-lock.json ./
 
-# Copiar apenas arquivos essenciais primeiro para otimizar cache
-COPY package.json pnpm-lock.yaml ./
-COPY prisma ./prisma
-
-# Instalar dependências sem salvar devDependencies
-RUN pnpm install --no-frozen-lockfile --prod
-
-# Gerar o cliente Prisma
-RUN pnpm postinstall
+# Instalar dependências sem devDependencies
+RUN npm ci --omit=dev
 
 # Copiar restante do código
 COPY . .
 
-# Construir a aplicação Next.js
-RUN pnpm build
+# Gerar cliente Prisma (se necessário)
+RUN npm run postinstall
 
-# Criar uma imagem final mais enxuta para rodar apenas a aplicação
+# Build da aplicação Next.js
+RUN npm run build
+
+# Criar imagem final para rodar a aplicação
 FROM node:22.11.0-alpine
 
 WORKDIR /app
 
-# Copiar apenas os arquivos necessários da etapa de build
-COPY --from=builder /app ./
+# Copiar arquivos da etapa de build
+COPY --from=builder /app .
 
-# Expor porta padrão do Next.js
+# Expor porta do Next.js
 EXPOSE 3000
 
-# Comando para rodar a aplicação
-CMD ["pnpm", "start"]
+# Comando de inicialização
+CMD ["npm", "start"]
