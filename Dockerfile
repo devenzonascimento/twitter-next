@@ -15,7 +15,7 @@ COPY package.json pnpm-lock.yaml ./
 COPY prisma ./prisma
 
 # Instalar dependências sem salvar devDependencies
-RUN pnpm install --no-frozen-lockfile --prod
+RUN pnpm install --frozen-lockfile --prod
 
 # Gerar o cliente Prisma
 RUN pnpm postinstall
@@ -33,6 +33,8 @@ WORKDIR /app
 
 # Copiar apenas os arquivos necessários da etapa de build
 COPY --from=builder /app ./
+
+RUN pnpm prisma migrate deploy --schema=./prisma/users-db.prisma
 
 # Expor porta padrão do Next.js
 EXPOSE 3000
